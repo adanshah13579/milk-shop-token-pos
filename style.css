@@ -28,8 +28,8 @@
   --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.18);
 
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Mono", "Consolas", "Courier New", monospace;
+  --font-sans: Arial, Helvetica, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: Arial, Helvetica, "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
 *,
@@ -43,6 +43,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
   background-color: var(--bg-page);
   color: var(--text-primary);
   min-height: 100vh;
