@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milk Shop POS — Token System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Shop Header -->
+    <header class="shop-header">
+      <div class="shop-brand">
+        <div class="shop-badge" aria-hidden="true">🥛</div>
+        <div class="shop-titles">
+          <h1 id="header-shop-name">Karachi Pure Milk Shop</h1>
+          <p id="header-shop-subtitle" class="shop-subtitle hidden"></p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="next-token-pill" aria-live="polite">
+          <span class="next-token-label">Next Token</span>
+          <span id="next-token-display" class="next-token-value">#001</span>
+        </div>
+        <button
+          type="button"
+          id="btn-open-settings"
+          class="icon-btn"
+          title="Shop & Printer Settings"
+          aria-label="Open Settings"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main POS Workspace -->
+    <main class="pos-workspace">
+      <!-- Left: Fast Cashier Interface -->
+      <section class="cashier-panel" aria-label="Cashier Controls">
+        <!-- Item Label Quick Pills -->
+        <div class="control-group">
+          <span class="control-label">Item</span>
+          <div class="item-pills" role="radiogroup" aria-label="Item Selection">
+            <button type="button" class="item-pill active" data-item="Fresh Milk" aria-checked="true" role="radio">
+              Fresh Milk
+            </button>
+            <button type="button" class="item-pill" data-item="Yogurt (Dahi)" aria-checked="false" role="radio">
+              Yogurt (Dahi)
+            </button>
+            <button type="button" class="item-pill" data-item="Rabri / Cream" aria-checked="false" role="radio">
+              Rabri / Cream
+            </button>
+          </div>
+        </div>
+
+        <!-- Custom Amount Input -->
+        <div class="control-group">
+          <label for="amount-input" class="control-label">Amount (PKR)</label>
+          <div class="amount-input-wrap">
+            <span class="currency-prefix" aria-hidden="true">Rs.</span>
+            <input
+              type="number"
+              id="amount-input"
+              class="amount-input"
+              inputmode="numeric"
+              min="1"
+              step="1"
+              placeholder="0"
+              autocomplete="off"
+              autofocus
+            />
+          </div>
+          <p id="input-error" class="input-error" role="alert" aria-live="assertive"></p>
+        </div>
+
+        <!-- Quick Amount Buttons -->
+        <div class="control-group">
+          <span class="control-label">Quick Amounts</span>
+          <div class="quick-amounts-grid">
+            <button type="button" class="quick-amt-btn" data-amount="100">Rs. 100</button>
+            <button type="button" class="quick-amt-btn" data-amount="200">Rs. 200</button>
+            <button type="button" class="quick-amt-btn" data-amount="250">Rs. 250</button>
+            <button type="button" class="quick-amt-btn" data-amount="300">Rs. 300</button>
+            <button type="button" class="quick-amt-btn" data-amount="500">Rs. 500</button>
+            <button type="button" class="quick-amt-btn" data-amount="1000">Rs. 1000</button>
+          </div>
+        </div>
+
+        <!-- Primary Action Buttons -->
+        <div class="action-row">
+          <button type="button" id="btn-clear" class="btn-clear">Clear</button>
+          <button type="button" id="btn-print" class="btn-print">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>PRINT TOKEN (Enter)</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Right: Live Thermal Receipt Preview (also the exact #receipt-area printed) -->
+      <aside class="preview-panel" aria-label="Live Thermal Receipt Preview">
+        <div class="preview-header">
+          <span class="preview-title">Live Receipt Preview</span>
+          <span id="preview-width-badge" class="width-badge">80mm</span>
+        </div>
+
+        <div class="preview-paper-stage">
+          <!-- Dedicated Thermal Receipt Area -->
+          <div id="receipt-area" class="receipt-area width-80mm">
+            <div class="receipt-header">
+              <div id="receipt-shop-name" class="receipt-shop-name">Karachi Pure Milk Shop</div>
+              <div id="receipt-shop-subtitle" class="receipt-shop-subtitle hidden"></div>
+            </div>
+
+            <div class="receipt-divider">--------------------------------</div>
+
+            <div id="receipt-datetime" class="receipt-datetime">16-Nov-2026 | 01:35 PM</div>
+
+            <div class="receipt-token-box">
+              <div class="receipt-token-label">TOKEN</div>
+              <div id="receipt-token-number" class="receipt-token-number">#001</div>
+            </div>
+
+            <div class="receipt-details">
+              <div id="receipt-item-name" class="receipt-item-name">Fresh Milk</div>
+              <div class="receipt-amount-row">
+                <span>Amount:</span>
+                <span id="receipt-amount" class="receipt-amount">Rs. 0</span>
+              </div>
+            </div>
+
+            <div class="receipt-divider">--------------------------------</div>
+
+            <div id="receipt-footer" class="receipt-footer">
+              Shukriya! Ye token sirf aaj ke liye qabil-e-qabool hai.
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Bottom Collapsible Session Summary Bar -->
+    <footer class="session-bar">
+      <button
+        type="button"
+        id="btn-toggle-summary"
+        class="session-toggle"
+        aria-expanded="false"
+        aria-controls="session-summary-content"
+      >
+        <span class="session-toggle-title">Today's Session Summary</span>
+        <span class="session-quick-stats" id="session-quick-stats">0 tokens · Rs. 0</span>
+        <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div id="session-summary-content" class="session-content hidden">
+        <div class="session-metrics">
+          <div class="metric-card">
+            <span class="metric-label">Tokens Printed</span>
+            <span id="summary-token-count" class="metric-value">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Total Cash</span>
+            <span id="summary-total-cash" class="metric-value">Rs. 0</span>
+          </div>
+        </div>
+        <button type="button" id="btn-reset-session" class="btn-danger-outline">
+          Reset Session
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="settings-modal-title">Shop &amp; Printer Settings</h2>
+        <button type="button" id="btn-close-settings" class="icon-btn" aria-label="Close Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="settings-form" class="modal-body">
+        <div class="form-field">
+          <label for="setting-shop-name">Shop Name</label>
+          <input type="text" id="setting-shop-name" required maxlength="60" placeholder="Karachi Pure Milk Shop" />
+        </div>
+
+        <div class="form-field">
+          <label for="setting-shop-subtitle">Shop Address / Phone (optional)</label>
+          <input type="text" id="setting-shop-subtitle" maxlength="80" placeholder="e.g., Main Road, Gulshan | 0300-1234567" />
+        </div>
+
+        <div class="form-field">
+          <span class="field-label">Thermal Printer Paper Width</span>
+          <div class="width-toggle-group" role="radiogroup" aria-label="Thermal Printer Paper Width">
+            <label class="width-option">
+              <input type="radio" name="paper-width" value="80mm" checked />
+              <span>80mm (Standard)</span>
+            </label>
+            <label class="width-option">
+              <input type="radio" name="paper-width" value="58mm" />
+              <span>58mm (Compact)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="setting-footer-msg">Custom Token Footer Message</label>
+          <textarea id="setting-footer-msg" rows="2" maxlength="140" placeholder="Shukriya! Ye token sirf aaj ke liye qabil-e-qabool hai."></textarea>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <div class="counter-reset-row">
+          <div>
+            <div class="reset-title">Token Counter</div>
+            <div class="reset-desc">Current next token: <strong id="modal-current-token">#001</strong></div>
+          </div>
+          <button type="button" id="btn-reset-counter" class="btn-danger-outline">
+            Reset Token Counter to 1
+          </button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-settings" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
